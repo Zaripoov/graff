@@ -120,6 +120,8 @@ class GraffController extends ActiveController
 
         $dijkstra = new Dijkstra($startIndex, $finishIndex, $nodes, $links);
 
+        //return $dijkstra->pathSequence();
+
         return  ['paths' => $dijkstra->pathSequence(), 'shortWay' => $dijkstra->shortStroke()];
 
 

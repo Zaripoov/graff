@@ -18,7 +18,7 @@ class m210627_175055_create_libra_table extends Migration
             'end_point' => $this->integer(11)->notNull(),
             'libra' => $this->integer(11)->notNull(),
         ]);
-        
+
         // Добавляем foreign key
         $this->addForeignKey(
             'start_point_point', // это "условное имя" ключа

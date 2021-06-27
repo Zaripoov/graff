@@ -9,8 +9,8 @@ use function Symfony\Component\String\s;
 class Dijkstra
 {
 
-    public $startIndex = null;
-    public $finishIndex = null;
+    public $startIndex;
+    public $finishIndex;
 
     public $way = [];
     public $wayIndex = -1;
@@ -42,11 +42,7 @@ class Dijkstra
 
         $this->way[$this->wayIndex] = $nodeIndex;
 
-
-
         if($nodeIndex == $this->finishIndex){
-
-
 
             foreach ($this->way as $key => $item){
                 if($key == 0){
@@ -64,7 +60,6 @@ class Dijkstra
 
             $this->listPaths[] = ['path' => $this->way, 'sum' => $this->sum];
 
-            //$this->pathSequence();
             $this->sum = 0;
         }elseif(($nodeIndex != $this->startIndex) OR ($this->wayIndex == 0)){
             foreach ($this->links as $i => $link){
@@ -74,7 +69,6 @@ class Dijkstra
             }
         }else{
             $this->sum = 0;
-
         }
 
         $this->wayIndex--;
@@ -107,11 +101,45 @@ class Dijkstra
     }
 
     public function pathSequence(){
-        //return $this->listPaths[] = ['path' => $this->way, 'sum' => $this->sum];
+
+
+        $arrayPath = [];
+        foreach ($this->listPaths as $keyItem => $item){
+            foreach ($item['path'] as $keyValue => $value){
+                $qp = null;
+                foreach ($this->nodes as $node){
+
+                    if(!empty($qp)){
+                        unset($this->listPaths[$keyItem]['path'][$keyValue]);
+                    }
+
+                    if(isset($this->listPaths[$keyItem]['path'][$keyValue]) && ($this->listPaths[$keyItem]['path'][$keyValue] == $this->finishIndex)){
+                        $qp = $this->listPaths[$keyItem]['path'][$keyValue];
+
+                    }
+
+                    if(isset($this->listPaths[$keyItem]['path'][$keyValue])){
+                        if($node['id'] == $value){
+                            $this->listPaths[$keyItem]['path'][$keyValue] = $node['point'];
+                        }
+                    }
+
+
+
+
+                }
+
+
+            }
+
+        }
+
+
 
 
 
         return $this->listPaths;
+        //return $this->nodes;
         //return $this->way;
     }
 
