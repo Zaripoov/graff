@@ -103,18 +103,19 @@ class Dijkstra
     public function pathSequence(){
 
 
-        $arrayPath = [];
         foreach ($this->listPaths as $keyItem => $item){
+            $qp = null;
             foreach ($item['path'] as $keyValue => $value){
-                $qp = null;
+                //
                 foreach ($this->nodes as $node){
 
-                    if(!empty($qp)){
-                        unset($this->listPaths[$keyItem]['path'][$keyValue]);
+                    if(isset($qp)){
+                        unset($this->listPaths[$keyItem]['path'][$keyValue + 1]);
+                        //break;
                     }
 
                     if(isset($this->listPaths[$keyItem]['path'][$keyValue]) && ($this->listPaths[$keyItem]['path'][$keyValue] == $this->finishIndex)){
-                        $qp = $this->listPaths[$keyItem]['path'][$keyValue];
+                        $qp = true;
 
                     }
 
@@ -123,7 +124,6 @@ class Dijkstra
                             $this->listPaths[$keyItem]['path'][$keyValue] = $node['point'];
                         }
                     }
-
 
 
 
